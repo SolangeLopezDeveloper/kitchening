@@ -12,6 +12,7 @@ const usersRouter = require('./routes/users');
 const coursesRouter = require('./routes/courses');
 const localsUserCheck = require("./middlewares/localsUserCheck");
 const cookieCheck = require("./middlewares/cookieCheck");
+const apiRouter= require('./routes/api/usersApi');
 
 const app = express();
 
@@ -45,6 +46,7 @@ app
   .use('/', indexRouter) //http://localhost:3000/
   .use('/users', usersRouter) //http://localhost:3000/users
   .use('/courses',coursesRouter) // http:localhost:3000/courses
+  .use('/usersApi', apiRouter)
 
 
 // catch 404 and forward to error handler

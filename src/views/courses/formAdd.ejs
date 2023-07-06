@@ -18,22 +18,22 @@
         <div class="col-12 col-md-10 col-lg-8 mx-auto">
             <div class="card shadow-lg">
                 <div class="card-body">
-                    <form action="" class="row" method="POST" enctype="multipart/form-data">
+                    <form action="" class="row" method="POST" enctype="multipart/form-data" id="form-add-product">
                         <div class="col-12 col-md-6 mb-3">
                             <label for="title" class="form-label">Título</label>
                             <input type="text" class="form-control <%= locals.errors && errors.title ? 'is-invalid' : null%>" id="title" placeholder="Título del curso" name="title" value="<%= locals.old && old.title ? old.title : null %>">
-                            <small class="text-danger ms-2"><%= locals.errors && errors.title ? errors.title.msg : null %></small>
+                            <small class="text-danger ms-2" id="titleError"><%= locals.errors && errors.title ? errors.title.msg : null %></small>
                           </div>
                           <div class="col-6 col-md-3 mb-3">
                             <label for="price" class="form-label">Precio</label>
                             <input type="number" class="form-control  <%= locals.errors && errors.price ? 'is-invalid' : null%>" id="price" name="price" value="<%= locals.old && old.price ? old.price : null %>">
-                            <small class="text-danger ms-2"><%= locals.errors && errors.price ? errors.price.msg : null %></small>
+                            <small class="text-danger ms-2" id="priceError"><%= locals.errors && errors.price ? errors.price.msg : null %></small>
 
                           </div>
                           <div class="col-6 col-md-3 mb-3">
                             <label for="discount" class="form-label">Descuento</label>
-                            <input type="number" class="form-control  <%= locals.errors && errors.discount ? 'is-invalid' : null%>" id="discount" name="discount" value="<%= locals.old && old.discount ? old.discount : null %>">
-                            <small class="text-danger ms-2"><%= locals.errors && errors.discount ? errors.discount.msg : null %></small>
+                            <input type="number" class="form-control  <%= locals.errors && errors.discount ? 'is-invalid' : null%>" id="discount" name="discount" value="<%= locals.old && old.discount ? old.discount : 0 %>">
+                            <small class="text-danger ms-2" id="discountError"><%= locals.errors && errors.discount ? errors.discount.msg : null %></small>
 
                           </div>
                           <div class="col-12 col-md-6 mb-3">
@@ -44,7 +44,7 @@
                                  <option value="<%= id %>" <%= locals.old && old.chef && old.chef == id ? 'selected' : null %>><%= name %></option>
                                 <% }) %>
                             </select>
-                            <small class="text-danger ms-2"><%= locals.errors && errors.chef ? errors.chef.msg : null %></small>
+                            <small class="text-danger ms-2" id="chefError"><%= locals.errors && errors.chef ? errors.chef.msg : null %></small>
 
                           </div>
                           <div class="col-12 col-md-6 mb-3">
@@ -55,13 +55,30 @@
                                   <option value="<%= id %>" <%= locals.old && old.category && old.category == id ? 'selected' : null %>><%= name %></option>
                                  <% }) %>
                             </select>
-                            <small class="text-danger ms-2"><%= locals.errors && errors.category ? errors.category.msg : null %></small>
+                            <small class="text-danger ms-2" id="categoryError"><%= locals.errors && errors.category ? errors.category.msg : null %></small>
 
                           </div>
                           <div class="col-12 mb-3">
                             <label for="description" class="form-label">Descripción</label>
                             <textarea class="form-control  <%= locals.errors && errors.description ? 'is-invalid' : null%>" id="description" rows="3" name="description"><%= locals.old && old.description ? old.description : null %></textarea>
-                            <small class="text-danger ms-2"><%= locals.errors && errors.description ? errors.description.msg : null %></small>
+                            <small class="text-danger ms-2" id="descriptionError"><%= locals.errors && errors.description ? errors.description.msg : null %></small>
+                            <small id="descriptionInfo" hidden><span id="numberCharacters"></span> disponibles</small>
+                          </div>
+                      
+                          
+                       
+                        
+                          <div class="col-12 mb-3">
+                            <div class="row">
+                            <div class="col-12 col-md-6 text-center">
+                              <label for="images" class="btn btn-primary" id="btnImages">Agregar Imágenes</label>
+                              <input hidden type="file" class="form-control" id="images" name="images" multiple/>
+                              <p class="text-danger small ms-2" id="imagesError"><%= locals.errors && errors.images ? errors.images.msg : null %></p>
+                            </div>
+                            <div class="col-12 col-md-6 d-flex justify-content" id="boxImagesPreview">
+                              
+                            </div>
+                          </div>
                           </div>
                           <div class="col-12 mb-3">
                             <div class="d-flex justify-content-around">
@@ -74,17 +91,9 @@
                                 <label class="form-check-label" for="flexSwitchCheckChecked">Visible</label>
                               </div>
                             </div>
-
                           </div>
-                       
-                        
-                          <div class="col-9 mb-3">
-                            <label for="images" class="form-label">Imagenes</label>
-                            <input type="file" class="form-control" id="images" name="images" multiple/>
-                            <small class="text-danger ms-2"><%= locals.errors && errors.images ? errors.images.msg : null %></small>
-                          </div>
-
                           <div class="d-flex justify-content-end">
+                            <small class="text-danger" id="formError"></small>
                             <button type="submit" class="btn btn-dark">Crear curso</button>
                           </div>
                     </form>
@@ -101,7 +110,11 @@
 
         <%- include('../partials/scripts') %>
 
+<script src="/javascripts/formAdd.js"></script>
 
-  </body>
+
+
+
+</body>
 
 </html>

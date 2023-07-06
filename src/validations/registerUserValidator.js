@@ -39,10 +39,12 @@ module.exports = [
 
     check('password')
         .notEmpty().withMessage('La contraseña es obligatoria').bail()
-        .isLength({
-            min: 6,
-            max : 12
-        }).withMessage('La contraseña debe tener entre 6 y 12 caracteres'),
+        .custom((value,{req}) =>{
+            if(!regExPass.test(value.trim())){
+                return false
+            }
+            return true
+        }).withMessage('La contraseña debe tener entre 6 y 12 caracteres, y al menos una minúcula una mayuscula y un numero'),
     
     body('password2')
         .notEmpty().withMessage('Debes confirmar tu contraseña').bail()
